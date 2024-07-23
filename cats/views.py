@@ -1,3 +1,4 @@
+from rest_framework import generics
 from rest_framework import status
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -17,3 +18,13 @@ def cat_list(request):
     cats = Cat.objects.all()
     serializer = CatSerializer(cats, many=True)
     return Response(serializer.data)
+
+
+class CatList(generics.ListCreateAPIView):
+    queryset = Cat.objects.all()
+    serializer_class = CatSerializer
+
+
+class CatDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Cat.objects.all()
+    serializer_class = CatSerializer
